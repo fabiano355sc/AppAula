@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"             
-             Title="{Binding _veiculo.Nome}"
+             Title="{Binding Veiculo.Nome}"
              x:Class="AppAula.Views.AgendamentoView">
     <StackLayout>
         <TableView>
@@ -30,6 +30,6 @@
             </TableSection>
         </TableRoot>
     </TableView>
-        <Button Text="Agendar" Clicked="Button_Clicked"></Button>
+        <Button Text="Agendar" Command="{Binding AgendarCommand}"></Button>
     </StackLayout>
 </ContentPage>

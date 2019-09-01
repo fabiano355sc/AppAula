@@ -1,4 +1,5 @@
 ﻿using AppAula.Models;
+using AppAula.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,16 +15,28 @@ namespace AppAula.Views
     [DesignTimeVisible(false)]
     public partial class ListagemView : ContentPage
     {
+        public ListagemViewModel ViewModel { get; set; }
         public ListagemView()
         {
             InitializeComponent();
+            this.ViewModel = new ListagemViewModel();
+            this.BindingContext = this.ViewModel;
+        }
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            MessagingCenter.Subscribe<Veiculo>(this, "VeiculoSelecionado",
+                (msg) =>
+                {
+                    Navigation.PushAsync(new DetalheView(msg));
+                });
+            await this.ViewModel.GetVeiculos();
         }
 
-        private void ListViewVeiculos_ItemTapped(object sender, ItemTappedEventArgs e)
+        protected override void OnDisappearing()
         {
-            var veiculo = (Veiculo)e.Item;
-
-            Navigation.PushAsync(new DetalheView(veiculo));
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<Veiculo>(this, "VeiculoSelecionado");
         }
     }
 }

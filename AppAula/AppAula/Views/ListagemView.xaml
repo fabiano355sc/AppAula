@@ -3,28 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AppAula.ViewModels"
              mc:Ignorable="d"
              Title="TestAula"
-             x:Class="AppAula.Views.ListagemView"
-             xmlns:vm="clr-namespace:AppAula.ViewModels">
-    <ContentPage.BindingContext>
-        <vm:ListagemViewModel></vm:ListagemViewModel>
-    </ContentPage.BindingContext>
-    <ListView x:Name="listViewVeiculos" ItemsSource="{Binding Veiculos}" Margin="25"
-              ItemTapped="ListViewVeiculos_ItemTapped">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <ViewCell.View>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Nome}"></Label>
-                            <Label Text=" - "></Label>
-                            <Label Text="{Binding PrecoFormatado}"></Label>
-                        </StackLayout>
-                    </ViewCell.View>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-    
+             x:Class="AppAula.Views.ListagemView">
+    <StackLayout>
+        <ActivityIndicator IsRunning="{Binding Aguarde}"
+                           IsVisible="{Binding Aguarde}">
+        </ActivityIndicator>
+        <ListView x:Name="listViewVeiculos" ItemsSource="{Binding Veiculos}" 
+              Margin="25"
+              SelectedItem="{Binding VeiculoSelecionado}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Nome}"></Label>
+                                <Label Text=" - "></Label>
+                                <Label Text="{Binding PrecoFormatado}"></Label>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

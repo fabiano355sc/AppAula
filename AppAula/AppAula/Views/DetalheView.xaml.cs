@@ -21,11 +21,19 @@ namespace AppAula.Views
             this.Veiculo = veiculo;
             this.BindingContext = new DetalheViewModel(veiculo);
         }
-        private void ButtonProximo_Clicked(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-
-            Navigation.PushAsync(new AgendamentoView(this.Veiculo));
-
+            base.OnAppearing();
+            MessagingCenter.Subscribe<Veiculo>(this, "Proximo", 
+                msg =>
+                {
+                    Navigation.PushAsync(new AgendamentoView(msg));
+                });
+        }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<Veiculo>(this, "Proximo");
         }
     }
 }

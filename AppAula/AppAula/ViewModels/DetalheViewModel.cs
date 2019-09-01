@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace AppAula.ViewModels
 {
-    public class DetalheViewModel : INotifyPropertyChanged
+    public class DetalheViewModel : BaseViewModel
     {
         public Veiculo Veiculo { get; set; }
         public string TextoFreioABS
@@ -53,11 +55,6 @@ namespace AppAula.ViewModels
             }
         }
 
-        public void OnPropertyChanged([CallerMemberName]string name="")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         public string ValorTotal
         {
             get
@@ -66,11 +63,14 @@ namespace AppAula.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public DetalheViewModel(Veiculo veiculo)
         {
             this.Veiculo = veiculo;
+            ProximoComand = new Command(()=> {
+                MessagingCenter.Send(veiculo, "Proximo");
+            });
         }
+
+        public ICommand ProximoComand { get; set; }
     }
 }

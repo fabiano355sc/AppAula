@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             Title="{Binding _veiculo.Nome}"
+             Title="{Binding Veiculo.Nome}"
              x:Class="AppAula.Views.DetalheView">
     <StackLayout Padding="25">
         <TableView Intent="Settings">
@@ -18,7 +18,7 @@
             </TableRoot>
         </TableView>
         <Button x:Name="buttonProximo" Text="Próximo"
-            Clicked="ButtonProximo_Clicked"
-            VerticalOptions="End"></Button>
+                Command="{Binding ProximoComand}"
+                VerticalOptions="End"></Button>
     </StackLayout>
 </ContentPage>
