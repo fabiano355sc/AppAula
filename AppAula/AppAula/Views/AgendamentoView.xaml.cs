@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AppAula.Models;
+using AppAula.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,29 +14,22 @@ namespace AppAula.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AgendamentoView : ContentPage
     {
-        public Veiculo _veiculo { get; set; }
-        public string Nome { get; set; }
-        public string Fone { get; set; }
-        public string Email { get; set; }
-
-        DateTime dataAgendamento = DateTime.Today;
-        public DateTime DataAgendamento {
-            get { return dataAgendamento; }
-            set { dataAgendamento = value; }
-        }
-        public TimeSpan HoraAgendamento { get; set; }
-        
+        public AgendamentoViewModel ViewModel { get; set; }
         public AgendamentoView(Veiculo veiculo)
         {
             InitializeComponent();
-            this._veiculo = veiculo;
-            this.BindingContext = this;
+            this.ViewModel = new AgendamentoViewModel(veiculo);
+            this.BindingContext = ViewModel;
         }
-
         private void Button_Clicked(object sender, EventArgs e)
         {
-            string mensagem = string.Format("Nome: {0} Fone: {1} E-mail: {2} Data: {3} Hora: {4}",
-                Nome, Fone, Email, DataAgendamento.ToString("dd/MM/yyyy"), HoraAgendamento);
+            string mensagem = string.Format("Veiculo: {0} Nome: {1} Fone: {2} E-mail: {3} Data: {4} Hora: {5}",
+                ViewModel.Agendamento.Veiculo.Nome,
+                ViewModel.Agendamento.Nome,
+                ViewModel.Agendamento.Fone,
+                ViewModel.Agendamento.Email,
+                ViewModel.Agendamento.DataAgendamento.ToString("dd/MM/yyyy"),
+                ViewModel.Agendamento.HoraAgendamento);
 
             DisplayAlert("Agendamento", mensagem, "Ok");
         }

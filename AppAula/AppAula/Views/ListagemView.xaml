@@ -5,8 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Title="TestAula"
-             x:Class="AppAula.Views.ListagemView">
-
+             x:Class="AppAula.Views.ListagemView"
+             xmlns:vm="clr-namespace:AppAula.ViewModels">
+    <ContentPage.BindingContext>
+        <vm:ListagemViewModel></vm:ListagemViewModel>
+    </ContentPage.BindingContext>
     <ListView x:Name="listViewVeiculos" ItemsSource="{Binding Veiculos}" Margin="25"
               ItemTapped="ListViewVeiculos_ItemTapped">
         <ListView.ItemTemplate>
